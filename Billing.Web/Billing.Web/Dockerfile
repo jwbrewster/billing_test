@@ -5,9 +5,6 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-#RUN apt-get update && apt-get upgrade -y && \
-    #apt-get install -y nodejs npm
-
 RUN apt-get update
 RUN apt-get -y install curl gnupg
 RUN curl -sL https://deb.nodesource.com/setup_14.x  | bash -
@@ -16,9 +13,6 @@ RUN npm install
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 
-#RUN apt-get update && apt-get upgrade -y && \
-    #apt-get install -y nodejs npm
-
 RUN apt-get update
 RUN apt-get -y install curl gnupg
 RUN curl -sL https://deb.nodesource.com/setup_14.x  | bash -
@@ -26,14 +20,14 @@ RUN apt-get -y install nodejs
 RUN npm install
 
 WORKDIR /src
-COPY ["Billing.Web.csproj", "./"]
-RUN dotnet restore "Billing.Web.csproj"
+COPY ["Billing.Web/Billing.Web.csproj", "Billing.Web/"]
+RUN dotnet restore "Billing.Web/Billing.Web.csproj"
 COPY . .
 WORKDIR "/src"
-RUN dotnet build "Billing.Web.csproj" -c Release -o /app/build
+RUN dotnet build "Billing.Web/Billing.Web.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Billing.Web.csproj" -c Release -o /app/publish
+RUN dotnet publish "Billing.Web/Billing.Web.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
