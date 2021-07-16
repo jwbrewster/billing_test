@@ -26,7 +26,7 @@ RUN apt-get -y install nodejs
 RUN npm install
 
 WORKDIR /src
-COPY ["Billing.Web.csproj", "/"]
+COPY ["Billing.Web.csproj", "./"]
 RUN dotnet restore "Billing.Web.csproj"
 COPY . .
 WORKDIR "/src"
