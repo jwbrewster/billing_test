@@ -11,6 +11,7 @@
     <RootNamespace>Sierra.Billing.Web</RootNamespace>
     <UserSecretsId>beaa5ff2-5cac-4879-85dd-30a46d43811f</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	<DockerfileContext>.</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
